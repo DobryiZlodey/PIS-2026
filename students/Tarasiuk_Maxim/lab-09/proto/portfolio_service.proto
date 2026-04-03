@@ -1,0 +1,38 @@
+syntax = "proto3";
+
+service PortfolioService {
+  // Unary RPC 1
+  rpc CreatePortfolio(CreatePortfolioRequest) returns (CreatePortfolioResponse);
+  
+  // Unary RPC 2
+  rpc GetPortfolio(GetPortfolioRequest) returns (PortfolioDto);
+  
+  // Server-side Streaming RPC
+  rpc StreamActivePortfolios(StreamRequest) returns (stream PortfolioDto);
+}
+
+message CreatePortfolioRequest {
+  string portfolio_id = 1;
+  string owner_id = 2;
+}
+
+message CreatePortfolioResponse {
+  string portfolio_id = 1;
+  string status = 2;
+  string message = 3;
+}
+
+message GetPortfolioRequest {
+  string portfolio_id = 1;
+}
+
+message StreamRequest {
+  // empty request to subscribe
+}
+
+message PortfolioDto {
+  string portfolio_id = 1;
+  string owner_id = 2;
+  string status = 3;
+  int32 total_positions = 4;
+}
